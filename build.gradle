@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+war {
+    baseName = 'spring-security-firebase'
+    version =  '0.0.3'
+}
+
+configurations {
+    providedRuntime
+}
+
+// mainClassName = 'SpringBootApplication'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+eclipse {
+    classpath {
+       downloadSources=true
+    }
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile 'commons-io:commons-io:2.5'
+    
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    
+
+    compile 'com.google.firebase:firebase-admin:4.0.3'
+    compileOnly "org.projectlombok:lombok:1.16.12"
+    
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.security:spring-security-test")
+}
