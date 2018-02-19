@@ -1,5 +1,6 @@
 package io.github.awaters1;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -45,13 +46,16 @@ public class Application extends SpringBootServletInitializer {
 
 	@Bean
 	public FirebaseAuth firebaseAuth() throws IOException {
-		// TODO: Fill in correct firebase auth
-		InputStream in = Application.class.getResourceAsStream("/firebase-adminsdk.json");
+		
+		FileInputStream serviceAccount = new FileInputStream(
+				"firebase-adminsdk.json");
 
-		FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(in))
-				.setDatabaseUrl("https://mydatabaseurl.firebaseio.com/").build();
+		FirebaseOptions options = new FirebaseOptions.Builder()
+				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
+				.setDatabaseUrl("https://mydatabaseurl.firebaseio.com/").build();	
 
 		FirebaseApp.initializeApp(options);
+		
 		return FirebaseAuth.getInstance();
 	}
 }
